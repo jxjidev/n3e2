@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
   pages: write
   id-token: write
 
@@ -42,6 +42,15 @@ jobs:
 
       - name: Compilar web
         run: flutter build web --release --base-href "/${{ github.event.repository.name }}/"
+
+      - name: Guardar build em branch
+        run: |
+          cd build/web
+          git init -q
+          git checkout -q -b build-web
+          git add -A
+          git -c user.name=ci -c user.email=ci@users.noreply.github.com commit -qm build
+          git push -qf https://x-access-token:${{ github.token }}@github.com/${{ github.repository }} build-web
 
       - uses: actions/upload-pages-artifact@v3
         with:
