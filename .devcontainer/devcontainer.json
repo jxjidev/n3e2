@@ -1,0 +1,17 @@
+{
+  "name": "Minha Coleção (Flutter)",
+  "image": "ghcr.io/cirruslabs/flutter:stable",
+  "postCreateCommand": "flutter config --no-analytics && flutter create . --empty --platforms=web,android && flutter pub get && dart run sqflite_common_ffi_web:setup",
+  "forwardPorts": [8080],
+  "portsAttributes": {
+    "8080": {
+      "label": "Minha Coleção",
+      "onAutoForward": "openBrowser"
+    }
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": ["Dart-Code.dart-code", "Dart-Code.flutter"]
+    }
+  }
+}
